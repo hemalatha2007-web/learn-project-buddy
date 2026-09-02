@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as FindRouteImport } from './routes/find'
+import { Route as IdeasRouteImport } from './routes/ideas'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as RecommendationRouteImport } from './routes/recommendation'
 import { Route as RegisterRouteImport } from './routes/register'
@@ -29,6 +30,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const FindRoute = FindRouteImport.update({
   id: '/find',
   path: '/find',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IdeasRoute = IdeasRouteImport.update({
+  id: '/ideas',
+  path: '/ideas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/find': typeof FindRoute
+  '/ideas': typeof IdeasRoute
   '/profile': typeof ProfileRoute
   '/recommendation': typeof RecommendationRoute
   '/register': typeof RegisterRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/find': typeof FindRoute
+  '/ideas': typeof IdeasRoute
   '/profile': typeof ProfileRoute
   '/recommendation': typeof RecommendationRoute
   '/register': typeof RegisterRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/find': typeof FindRoute
+  '/ideas': typeof IdeasRoute
   '/profile': typeof ProfileRoute
   '/recommendation': typeof RecommendationRoute
   '/register': typeof RegisterRoute
@@ -75,15 +84,28 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/dashboard' | '/find' | '/profile' | '/recommendation' | '/register'
+    | '/'
+    | '/dashboard'
+    | '/find'
+    | '/ideas'
+    | '/profile'
+    | '/recommendation'
+    | '/register'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/dashboard' | '/find' | '/profile' | '/recommendation' | '/register'
+    | '/'
+    | '/dashboard'
+    | '/find'
+    | '/ideas'
+    | '/profile'
+    | '/recommendation'
+    | '/register'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
     | '/find'
+    | '/ideas'
     | '/profile'
     | '/recommendation'
     | '/register'
@@ -93,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
   FindRoute: typeof FindRoute
+  IdeasRoute: typeof IdeasRoute
   ProfileRoute: typeof ProfileRoute
   RecommendationRoute: typeof RecommendationRoute
   RegisterRoute: typeof RegisterRoute
@@ -119,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/find'
       fullPath: '/find'
       preLoaderRoute: typeof FindRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ideas': {
+      id: '/ideas'
+      path: '/ideas'
+      fullPath: '/ideas'
+      preLoaderRoute: typeof IdeasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -149,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
   FindRoute: FindRoute,
+  IdeasRoute: IdeasRoute,
   ProfileRoute: ProfileRoute,
   RecommendationRoute: RecommendationRoute,
   RegisterRoute: RegisterRoute,
