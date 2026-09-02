@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as FindRouteImport } from './routes/find'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as RecommendationRouteImport } from './routes/recommendation'
 import { Route as RegisterRouteImport } from './routes/register'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecommendationRoute = RecommendationRouteImport.update({
+  id: '/recommendation',
+  path: '/recommendation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/find': typeof FindRoute
   '/profile': typeof ProfileRoute
+  '/recommendation': typeof RecommendationRoute
   '/register': typeof RegisterRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/find': typeof FindRoute
   '/profile': typeof ProfileRoute
+  '/recommendation': typeof RecommendationRoute
   '/register': typeof RegisterRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,24 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/find': typeof FindRoute
   '/profile': typeof ProfileRoute
+  '/recommendation': typeof RecommendationRoute
   '/register': typeof RegisterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/find' | '/profile' | '/register'
+  fullPaths:
+    '/' | '/dashboard' | '/find' | '/profile' | '/recommendation' | '/register'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/find' | '/profile' | '/register'
-  id: '__root__' | '/' | '/dashboard' | '/find' | '/profile' | '/register'
+  to:
+    '/' | '/dashboard' | '/find' | '/profile' | '/recommendation' | '/register'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/find'
+    | '/profile'
+    | '/recommendation'
+    | '/register'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +94,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   FindRoute: typeof FindRoute
   ProfileRoute: typeof ProfileRoute
+  RecommendationRoute: typeof RecommendationRoute
   RegisterRoute: typeof RegisterRoute
 }
 
@@ -109,6 +128,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recommendation': {
+      id: '/recommendation'
+      path: '/recommendation'
+      fullPath: '/recommendation'
+      preLoaderRoute: typeof RecommendationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -124,6 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   FindRoute: FindRoute,
   ProfileRoute: ProfileRoute,
+  RecommendationRoute: RecommendationRoute,
   RegisterRoute: RegisterRoute,
 }
 export const routeTree = rootRouteImport
